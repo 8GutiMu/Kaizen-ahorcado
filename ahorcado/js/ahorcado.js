@@ -1,19 +1,28 @@
 // alert("Welcome! It's really a pleasure to play with you! Enjoy our game!");
 var hombre = new Array("___\n", "   |\n", "   O\n", "  /", "|", "\\\n", "  /", " \\\n", "___")
-var palabra
-var libreriaPalabras = new Array("t o r t i l l a","q u e t z a l c o a t l","p e d r o i n f a n t e","b a l e r o",
-                                  "d i a d e m u e r t o s","b e l l a s a r t e s","a n g e l d e l a i n d e p e n d e n c i a",
-                                  "l u c h a l i b r e","x o l o i t z c u i n t l e","u n a m","f r i d a k a h l o");
-var partes = 0
-var colNueva = 0
-var jugando
-
+var libreriaPalabras = new Array("t o r t i l l a","p e d r o - i n f a n t e","b a l e r o",
+                                  "d i a - d e - m u e r t o s","b e l l a s - a r t e s","a n g e l - d e - l a - i n d e p e n d e n c i a",
+                                  "l u c h a - l i b r e","x o l o i t z c u i n t l e","u n a m","f r i d a - k a h l o","q u e t z a l c o a t l");
+var palabra;
+var partes = 0;
+var colNueva = 0;
+var jugando;
+var contador = 0;
 
 function ObtienePalabra() {
    //obtiene la palabra para jugar de forma pseudoaleatoria
-   var indice = Math.round ( Math.random() * 27 )
-   var cadena = new String( libreriaPalabras[indice] )
-   palabra = cadena.split(" ")
+  //  var indice = Math.round ( Math.random() * 10 )
+  //  var cadena = new String( libreriaPalabras[indice] )
+  //  palabra = cadena.split(" ")
+
+  if(contador < 11) {
+    var cadena = new String(libreriaPalabras[contador]);
+    palabra = cadena.split(" ");
+    contador++;
+  }else{
+    contador =0;
+    alert("You guys got all the words, click on Show me a word to star over :D ")
+  }
 
 }
 
@@ -94,8 +103,14 @@ function IniciaJuego(visor) {
    DibujaHombre(visor, partes)
    visor.displayPalabra.value = ""
    for (var x = 0; x < palabra.length; x++)
-      visor.displayPalabra.value += "_ "
-   visor.displayLetras.value = ""
+    if(palabra[x] == "-"){
+      visor.displayPalabra.value += "   "
+    }else{
+      visor.displayPalabra.value += "_ ";
+      visor.displayLetras.value = "";
+    }
+
+
 }
 
 function CompruebaPalabra(visor) {
@@ -106,7 +121,7 @@ function CompruebaPalabra(visor) {
    //la separa en sus espacios
    var letrasCadena = cadena.split(" ")
    for(var x = 0; x < letrasCadena.length; x++)
-      if (letrasCadena[x] == "_")
+      if (letrasCadena[x] == "_" )
          fin = false
    return fin
 }
